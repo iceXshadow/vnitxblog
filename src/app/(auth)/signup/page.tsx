@@ -3,8 +3,8 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -12,17 +12,47 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator"
 
 export default function SignupPage() {
+  const router = useRouter()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle signup logic
+    setError("")
+    setLoading(true)
+
+    try {
+      const response = await fetch("/api/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong")
+      }
+
+      // Redirect to login page on successful signup
+      router.push("/")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <div className="container flex h-screen max-w-md items-center justify-center py-8">
+    <div className="container mx-auto flex h-screen max-w-md items-center justify-center py-8">
       <Card className="w-full">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Sign up</CardTitle>
@@ -70,9 +100,17 @@ export default function SignupPage() {
                 </Link>
               </Label>
             </div>
-            <Button type="submit" className="w-full">
-              Create account
-            </Button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-md bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-medium text-white transition-all hover:from-blue-700 hover:to-purple-700 dark:from-blue-500 dark:to-purple-500 dark:hover:from-blue-600 dark:hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50"
+            >
+              {loading ? "Creating account..." : "Create account"}
+            </button>
+            {/* Add error message display */}
+            {error && (
+              <p className="mt-4 text-sm text-red-500">{error}</p>
+            )}
           </form>
 
           <div className="mt-4 flex items-center">
@@ -81,14 +119,14 @@ export default function SignupPage() {
             <Separator className="flex-1" />
           </div>
 
-          <div className="mt-4 grid gap-2">
+          {/* <div className="mt-4 grid gap-2">
             <Button variant="outline" className="w-full">
               Sign up with Google
             </Button>
             <Button variant="outline" className="w-full">
               Sign up with GitHub
             </Button>
-          </div>
+          </div> */}
         </CardContent>
         <CardFooter>
           <p className="text-center text-sm text-muted-foreground">
