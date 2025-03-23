@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+// import CategoryGrid from "@/components/category-grid"
 import CategoryGrid from "@/components/category-grid"
 
 export const metadata = {

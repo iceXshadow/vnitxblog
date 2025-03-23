@@ -22,7 +22,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="container flex h-screen max-w-md items-center justify-center py-8">
+    <div className="container flex h-screen max-w-md items-center justify-center py-8 m-auto">
       <Card className="w-full">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Sign up</CardTitle>

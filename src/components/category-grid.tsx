@@ -33,7 +33,7 @@ export default function CategoryGrid({ showCount = false }: CategoryGridProps) {
             href={`/categories/${category.slug}`}
             className="group flex flex-col items-center rounded-lg border p-6 transition-colors hover:border-primary hover:bg-primary/5"
           >
-            <div className={`mb-4 rounded-full p-3 ${category.bgColor}`}>
+            <div className={`mb-4 rounded-full p-3 border-1 white ${category.bgColor}`}>
               <Icon className={`h-8 w-8 ${category.iconColor}`} />
             </div>
             <h3 className="mb-1 text-lg font-medium">{category.name}</h3>
@@ -175,4 +175,3 @@ const categories = [
     count: 39,
   },
 ]
-
