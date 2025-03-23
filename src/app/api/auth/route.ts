@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/connectDB";
 import User from "@/models/Users";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../middleware/jwt";
-import { verifyToken } from "../middleware/jwt";
 
 // Signup endpoint
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -117,7 +115,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
 }
 
 // Logout endpoint
-export async function DELETE(req: NextRequest) {
+export async function DELETE() {
     try {
         const response = NextResponse.json(
             { message: "Logged out successfully" },
