@@ -6,8 +6,14 @@ import { Button } from "@/components/ui/Button"
 import { Separator } from "@/components/ui/separator"
 import { ChevronRight, Filter, ArrowUpDown } from "lucide-react"
 import CategoryDescription from "@/components/category-description"
+import { Metadata } from "next"
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
+type Props = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const categoryName = params.slug
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -19,7 +25,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   }
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
+export default function CategoryPage({ params }: Props) {
   const categorySlug = params.slug
   const categoryName = categorySlug
     .split("-")
