@@ -28,7 +28,7 @@ export default function RootLayout({
           <ToastProvider>
           <div className="flex min-h-screen flex-col">
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 px-2">{children}</main>
             <Footer />
           </div>
           </ ToastProvider>
