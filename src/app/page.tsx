@@ -16,12 +16,12 @@ export default function HomePage() {
   return (
     <div className="container py-8 md:py-12">
       {/* Hero section */}
-      <section className="mb-12 space-y-4 text-center">
+      <section className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">Discover, Read, and Share</h1>
-        <p className="mx-auto max-w-[700px] text-lg text-muted-foreground md:text-xl">
+        <p className="max-w-[700px] text-lg text-muted-foreground md:text-xl">
           Join our community of writers and readers to explore ideas, share stories, and connect with others.
         </p>
-        <div className="mx-auto flex max-w-md flex-col gap-2 sm:flex-row">
+        <div className="flex flex-col gap-2 sm:flex-row">
           <Button size="lg" className="w-full" asChild>
             <Link href="/signup">Start Writing</Link>
           </Button>
